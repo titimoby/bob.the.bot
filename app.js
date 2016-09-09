@@ -1,5 +1,5 @@
 var exec = require('child_process').exec;
-var cmd = './bin/hubot --adapter slack';
+var cmd = process.env.HUBOT_SLACK_TOKEN + ' ./bin/hubot --adapter slack';
 
 console.log("🚀 process.env.HUBOT_SLACK_TOKEN", process.env.HUBOT_SLACK_TOKEN)
 
