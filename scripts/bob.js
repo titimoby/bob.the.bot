@@ -7,6 +7,14 @@ const fetchSlackRoom = require('./tools/slack.js').fetchSlackRoom;
 const getData = require('./tools/http.js').getData;
 
 module.exports =  (robot) =>  {
+
+  // http://localhost:port/hey/hubot
+  // export EXPRESS_PORT=port
+  robot.router.get('/hey/bob', (req, res) => {
+    res.send({message:"💙"});
+  });
+
+
   // say hello
   if(process.env.BOB_THE_BOT_ENV=="dev") {
     console.log('[dev mode 🐼]');
