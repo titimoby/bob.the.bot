@@ -28,6 +28,8 @@ Run BoB to test with Slack: `HUBOT_SLACK_TOKEN=<token> ./bin/hubot --adapter sla
   - if you want to add some restaurants, this is here https://github.com/k33g/bob.the.bot.data/blob/master/restos.json
 - `bob joe dassin` :stuck_out_tongue_winking_eye:
 - `hey joe` :grinning:
+- `bob 42`
+- `bob find restos lyon alsacien`
 
 ## dev
 
@@ -73,3 +75,16 @@ module.exports =  (robot) =>  {
 or see `scripts/feature.joe.dassin.js`
 
 > about contributing: please add `feature` at the begining of the file name :octocat: :heart:
+
+## Use Yelp feature
+
+- register to the Yelp API
+- Add this environment variables: (prod and dev)
+
+
+```
+export yelp_consumer_key=<token>
+export yelp_consumer_secret=<token>  
+export yelp_token=<token>  
+export yelp_token_secret=<token>
+```
