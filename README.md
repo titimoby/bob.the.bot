@@ -28,6 +28,8 @@ Run BoB to test with Slack: `HUBOT_SLACK_TOKEN=<token> ./bin/hubot --adapter sla
   - if you want to add some restaurants, this is here https://github.com/k33g/bob.the.bot.data/blob/master/restos.json
 - `bob joe dassin` :stuck_out_tongue_winking_eye:
 - `hey joe` :grinning:
+- `bob 42`
+- `bob find restos lyon alsacien`
 
 ## dev
 

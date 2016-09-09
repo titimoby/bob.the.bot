@@ -96,7 +96,7 @@ module.exports =  (robot) =>  {
                     message.push(`${resto.display_phone}`);
                     message.push(`${resto.url}`);
                     //message.push(`${resto.snippet_text}`);
-                    message.push(``);
+                    //message.push(``);
                   })
                   res.send(message.join("\n"))
                 })
