@@ -1,7 +1,7 @@
 var exec = require('child_process').exec;
 var cmd = './bin/hubot --adapter slack';
-var http = require('http');
 
+console.log("🚀 process.env.HUBOT_SLACK_TOKEN", process.env.HUBOT_SLACK_TOKEN)
 
 exec(cmd, (err, stdout, stderr) => {
   if (err) {
@@ -10,12 +10,3 @@ exec(cmd, (err, stdout, stderr) => {
   }
   console.log(stdout);
 });
-
-var server = http.createServer(function (request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Hello I'm B*B\n");
-});
-
-console.log("🤖 listening ....")
-
-server.listen(8080);
