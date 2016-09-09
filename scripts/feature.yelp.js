@@ -1,6 +1,8 @@
 "use strict";
 
+const tokenize = require('./tools/words.js').tokenize;
 const stools = require('./tools/stools.js');
+const Yelp = require('yelp');
 
 const show = stools.show
 const Maybe = stools.Maybe;
@@ -38,6 +40,15 @@ module.exports =  (robot) =>  {
       : monet.Validation.Fail(["😩 no yelp token secret"])
   }
 
+
+  let searchFrenchRestos = ({yelpInstance, keywords, city}) => {
+    return yelpInstance.search({ term: `resto ${keywords}`, location: `${city}, France` })
+    .then(data => {
+      return data.businesses;
+    })
+  }
+
+
   let yelpValidation = Validation.of(
     yelpConsumerKey =>
       yelpConsumerSecret =>
@@ -60,7 +71,41 @@ module.exports =  (robot) =>  {
       },
       success => {
         console.log("👏", success)
-      });
+        const yelp = new Yelp({
+          consumer_key: success.yelpConsumerKey,
+          consumer_secret: success.yelpConsumerSecret,
+          token: success.yelpToken,
+          token_secret: success.yelpTokenSecret,
+        });
 
+        robot.hear(/bob/, (res) => {
+          let cmd = res.envelope.message.text;
+          let tokenizedCmd = tokenize(cmd);
+          // bob find restos lyon
+          if (tokenizedCmd.length >= 4) {
+            if (tokenizedCmd.second().equals("find") && tokenizedCmd.third().equals("restos")) {
+              let city = tokenizedCmd.fourth();
+              let keywords = tokenizedCmd.slice(4).join(" ");
 
+              searchFrenchRestos({yelpInstance: yelp, keywords: keywords, city: city})
+                .then(results => {
+                  let message = [];
+                  results.forEach(resto => {
+                    message.push(`${resto.name} rating: ${resto.rating}`);
+                    message.push(`${resto.location.display_address}`);
+                    message.push(`${resto.display_phone}`);
+                    message.push(`${resto.url}`);
+                    //message.push(`${resto.snippet_text}`);
+                    message.push(``);
+                  })
+                  res.send(message.join("\n"))
+                })
+                .catch(err => {
+                  console.error(err);
+                  res.send("😜 I think your search is totally mad!")
+                });
+            }
+          }
+        })
+      }); //end of catamorphism
 };
