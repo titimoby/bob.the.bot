@@ -2,35 +2,23 @@
 // BoB = Bot Operative Behaviour
 "use strict";
 
-const fetch = require('node-fetch');
-
-let getData = ({path}) => {
-  let _response = {}
-  return fetch(path, {
-    method: 'GET'  })
-  .then(response => {
-    return response.json();
-  })
-  .then(jsonData => {
-    return jsonData;
-  })
-}
-
-
-
-String.prototype.equals = function(x) { return x == this; }
-let tokenize = cmd => {
-  let tokenizedCmd = cmd.split(" ").filter(item => item !== "");
-  tokenizedCmd.first = () => tokenizedCmd[0];
-  tokenizedCmd.second = () => tokenizedCmd[1];
-  tokenizedCmd.third = () => tokenizedCmd[2];
-  tokenizedCmd.fourth = () => tokenizedCmd[3];
-  tokenizedCmd.fifth = () => tokenizedCmd[4];
-  tokenizedCmd.sixth = () => tokenizedCmd[5];
-  return tokenizedCmd;
-}
+const tokenize = require('./tools/words.js').tokenize;
+const fetchSlackRoom = require('./tools/slack.js').fetchSlackRoom;
+const getData = require('./tools/http.js').getData;
 
 module.exports =  (robot) =>  {
+  // say hello
+  if(process.env.BOB_THE_BOT_ENV=="dev") {
+    console.log('[dev mode 🐼]');
+    fetchSlackRoom({roomName:"testbob"}).then(room => {
+      robot.messageRoom(room.id, '[dev mode 🐼] Hello :earth_africa:, BoB is in the place! (reboot)')
+    })
+  }
+  if(process.env.BOB_THE_BOT_ENV=="prod") {
+    fetchSlackRoom({roomName:"general"}).then(room => {
+      robot.messageRoom(room.id, 'Hello :earth_africa:, BoB is in the place! (reboot)')
+    })
+  }
 
   robot.hear(/bob/, (res) => {
     let cmd = res.envelope.message.text;
@@ -57,19 +45,18 @@ module.exports =  (robot) =>  {
               }).join(""));
 
             }).catch(err => {
-              //console.log(err);
-              //throw new Error(err.message);
+              console.log(err)
               res.send("Huston? We've got a problem 😱");
             })
           } catch(err) {
-            //throw new Error(err.message);
+            console.log(err)
             res.send("Huston? We've got a problem 😱");
           }
         }
       }
 
     } catch(err) {
-      //console.log(err)
+      console.log(err)
       res.send("Huston? We've got a problem 😱");
     }
 

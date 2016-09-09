@@ -26,3 +26,50 @@ Run BoB to test with Slack: `HUBOT_SLACK_TOKEN=<token> ./bin/hubot --adapter sla
 - `bob help`
 - `bob restos <town>`
   - if you want to add some restaurants, this is here https://github.com/k33g/bob.the.bot.data/blob/master/restos.json
+- `bob joe dassin` :stuck_out_tongue_winking_eye:
+- `hey joe` :grinning:
+
+## dev
+
+Add this environment variables:
+
+```
+export BOB_THE_BOT_ENV=dev
+```
+
+## prod
+
+Add this environment variables:
+
+```
+export BOB_THE_BOT_ENV=prod
+export HUBOT_SLACK_TOKEN=<token>
+```
+
+## prod with CleverCloud
+
+> WIP status ok, have to be documented
+
+## Add features to BoB
+
+It's easy! Just put a JavaScript or CoffeeScript (:scream:) file like that in `scripts/`:
+
+```javascript
+"use strict";
+
+module.exports =  (robot) =>  {
+
+  robot.hear(/ping/, (res) => {
+    res.send("pong");
+  })
+
+  robot.hear(/pong/, (res) => {
+    res.send("ping");
+  })
+
+};
+```
+
+or see `scripts/feature.joe.dassin.js`
+
+> about contributing: please add `feature` at the begining of the file name :octocat: :heart:
