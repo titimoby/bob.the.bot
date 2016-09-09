@@ -1,4 +1,5 @@
 "use strict";
+const tokenize = require('./tools/words.js').tokenize;
 
 module.exports =  (robot) =>  {
 
