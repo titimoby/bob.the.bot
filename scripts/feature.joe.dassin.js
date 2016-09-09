@@ -10,7 +10,7 @@ module.exports =  (robot) =>  {
     let tokenizedCmd = tokenize(cmd);
 
     try {
-      // bob joe
+      // bob joe dassin
       if (tokenizedCmd.length == 3) { // first is bob
         if (tokenizedCmd.second().equals("joe") && tokenizedCmd.third().equals("dassin")) {
           let song = [
@@ -33,26 +33,5 @@ module.exports =  (robot) =>  {
     }
 
   });
-  // an other Joe
-  robot.hear(/hey joe/, (res) => {
-    let song = [
-        "Hey Joe\n"
-      , "Where you going with that money in your hand?\n"
-      , "I say: Hey Joe\n"
-      , "Where you going with that money in your hand?\n"
-      , "Well I'm going to see my woman\n"
-      , "You know I heard,\n"
-      , "She done messed around with some other man\n"
-      , "I heard she did\n"
-      , "You know I'm going downtown\n"
-      , "Gonna buy me a Blue Steel 44\n"
-      , "You know I'm going downtown\n"
-      , "Gonna buy me a Blue Steel 44\n"
-      , "I'm gonna catch up with that girl\n"
-      , "She won't be messing around\n"
-      , "On me no more.\n"
-    ].join("");
-    res.send(song);
-  })
 
 };
