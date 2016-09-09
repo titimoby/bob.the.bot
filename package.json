@@ -20,7 +20,7 @@
     "node-fetch": "^1.6.0"
   },
   "engines": {
-    "node": "6.5.0"
+    "node": "6.4.0"
   },
   "main": "app.js"
 }
