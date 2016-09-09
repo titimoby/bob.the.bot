@@ -5,7 +5,7 @@ var http = require('http');
 
 exec(cmd, (err, stdout, stderr) => {
   if (err) {
-    console.error(err);
+    console.error("🤖:", err);
     return;
   }
   console.log(stdout);
@@ -16,4 +16,6 @@ var server = http.createServer(function (request, response) {
   response.end("Hello I'm B*B\n");
 });
 
-server.listen(8081);
+console.log("🤖 listening ....")
+
+server.listen(8080);
